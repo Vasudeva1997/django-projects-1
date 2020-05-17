@@ -1,0 +1,8 @@
+{%extends 'base.html'%} {%block body_block%}
+<h5>Comment form</h5>
+<form method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{%endblock%}

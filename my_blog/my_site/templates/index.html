@@ -1,0 +1,15 @@
+{%extends 'base.html'%} 
+
+{%block body_block%}
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Hello, world!</h1>
+        <p class="lead">This is a simple blog page, that has the information of the places you visited</p>
+        <hr class="my-4">
+        <p>You can add the places and write about them.</p>
+        <p class="lead">
+          <a class="btn btn-primary btn-lg" href="{%url 'my_site:post_list'%}" role="button">Places</a>
+        </p>
+      </div>
+</div>
+{%endblock%}

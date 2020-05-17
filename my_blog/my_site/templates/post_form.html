@@ -1,0 +1,16 @@
+{%extends 'base.html'%} 
+
+{%block body_block%}
+<h1>Post Form</h1>
+<form class="form-horizontal" method="POST">
+    {% csrf_token %}
+    {%for field in form%}
+      <div class="form-group">
+        <label for="name">{{field.label}}</label>
+        {{field}}
+      </div>
+    {%endfor%}
+    <button type="submit" class="btn btn-primary ">Submit</button>
+</form>
+
+{%endblock%}
