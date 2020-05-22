@@ -2,7 +2,7 @@
 
 {%block body_block%}
 <h1>Post Form</h1>
-<form class="form-horizontal" method="POST">
+<form class="form-horizontal" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {%for field in form%}
       <div class="form-group">

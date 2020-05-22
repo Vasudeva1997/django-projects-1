@@ -5,9 +5,9 @@ from django.urls import reverse
 
 class Post(models.Model):
     title = models.CharField(max_length=256)
-    image_url = models.URLField()
     description = models.TextField()
-    
+    image_file = models.ImageField(upload_to="post_pics")
+
     def __str__(self):
         return self.title
 
@@ -21,3 +21,5 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.author
+
+

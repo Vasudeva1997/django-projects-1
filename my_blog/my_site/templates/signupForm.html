@@ -1,0 +1,31 @@
+{% extends "base.html" %} {%block body_block%}
+<form method="post">
+  {%for field in form%} {% for error in field.errors %}
+  <div class="alert alert-danger alert-dismissible fade show col-lg-5" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    <strong>{{ error|escape }}</strong>
+  </div>
+  
+  <script>
+    $(".alert").alert();
+  </script>
+  {% endfor %} {%endfor%} {%for field in form%} {% csrf_token %}
+
+  <div class="form-group">
+    <label for="">{{field.label}}</label>
+    {{field}}
+    <br />
+    <small id="helpId" class="text-muted">{{field.help_text}}</small>
+  </div>
+  {%endfor%}
+  <input
+    name="sumbit"
+    id="sumbit"
+    class="btn btn-primary"
+    type="submit"
+    value="Submit"
+  />
+</form>
+{%endblock%}

@@ -1,7 +1,9 @@
 from django.shortcuts import render,get_object_or_404,redirect
-from django.views.generic import (TemplateView, ListView, CreateView, DetailView, UpdateView, DeleteView)
+from django.views.generic import (TemplateView, ListView, CreateView, DetailView, UpdateView, DeleteView,)
 from django.contrib.auth.views import LoginView,LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 from . import models
 from . import forms
 from django.urls import reverse_lazy
@@ -24,7 +26,7 @@ class NewPost(LoginRequiredMixin,CreateView):
 class PostDetailView(LoginRequiredMixin,DetailView):
     login_url = "/accounts/login/"
     model = models.Post
-    template_name = "post_details.html"
+    template_name = "post_details.html" 
     
 class PostUpdateView(LoginRequiredMixin,UpdateView):
     login_url = "/accounts/login/"
@@ -42,6 +44,11 @@ class DoLogout(LoginRequiredMixin,LogoutView):
     def get(self, request):
         return redirect("my_site:post_list")
 
+class SignUpView(CreateView):
+    form_class = forms.SignUpForm
+    model = User
+    template_name = 'signupForm.html'
+    success_url = '/'
 
 def add_comment(request,pk):
     post = get_object_or_404(models.Post,pk=pk)

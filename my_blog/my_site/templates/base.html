@@ -66,6 +66,10 @@
           <li class="nav-item">
             <a id="nav4" class="nav-link" href="{% url 'login'%}">Login</a>
           </li>
+          <li class="nav-item">
+            <a id="nav5" class="nav-link" href="{% url 'signup'%}">Signup</a>
+          </li>
+          
           {%endif%}
         </ul>
       </div>
@@ -83,6 +87,9 @@
     }
     if (path.includes("login")) {
       $("#nav4").addClass("active")
+    }
+    if (path.includes("signup")) {
+      $("#nav5").addClass("active")
     }
   </script>
 </html>
