@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404,redirect
 from django.views.generic import ListView,CreateView,DetailView
 from . import models
 from . import forms
-
+from datetime import date
 # Create your views here.
 
 class PostListView(ListView):
@@ -18,13 +18,23 @@ class PostCreateView(CreateView):
 class PostDetailView(DetailView):
     model = models.Post
     template_name = "my_site/post_details.html"
-
-class OrderCreateView(CreateView):
+    
+class OrderListView(ListView):
     model = models.Post
-    form_class = forms.OrderForm
-    template_name = "my_site/order_form.html"
+    template_name = "my_site/order_list.html"
+    context_object_name = "posts"
+    
 
-    def get_context_data(self,**kwargs):
-        context = super().get_context_data(**kwargs)
-        context["posts"] = models.Post.objects.filter(id=self.kwargs['pk'])
-        return context
+def add_order(request,pk):
+    posts = get_object_or_404(models.Post,pk=pk)
+    if request.method == "POST":
+        form = forms.OrderForm(request.POST)
+        if form.is_valid():
+            order = form.save(commit=False)
+            order.post = posts
+            order.datetime = date.today()
+            order.save()
+            return redirect('my_site:post_list')
+    else:
+        form = forms.OrderForm()
+    return render(request,'my_site/order_form.html',{'form':form,'post':posts})

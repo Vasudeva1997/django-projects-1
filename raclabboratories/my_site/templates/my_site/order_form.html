@@ -3,7 +3,6 @@
 <div class="row">
     <div class="col-md-6">
         <h4 style="text-decoration: underline;">Order details :</h4>
-        {%for post in posts%}
         <img class="img-thumbnail" src="/media/{{post.image_file}}">
           <div class="card-body">
             <h4 class="card-title">{{post.impurity_name}}</h4>
@@ -11,10 +10,9 @@
             <p style="color:rgb(4, 145, 145);"><strong>CAS NO : </strong><span >{{post.cas_no}}</span></p>
             <p style="font-size: larger;"><span style="color: red"><strong>Price : </strong>&nbsp;&nbsp;₹ {{post.current_price}}/-</span>&nbsp;&nbsp; <del style="color: slategray;">₹ {{post.actual_price}}/-</del></p>
           </div>
-        {%endfor%}
     </div>
     <form class="col-md-6" method="post">
-        
+        {%csrf_token%}
         {%for field in form%}
         <div class="form-group">
             <label>{{field.label}}</label>
@@ -22,9 +20,10 @@
             <small id="helpId" class="text-muted">{{field.help_text}}</small>
         </div>
         {%endfor%}
-        <a name="" id="" class="btn btn-primary" href="#" role="button">Submit</a>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <!-- <a name="order_submit" id="order_submit" class="btn btn-primary" href="{%url 'my_site:add_order' pk=post.id%}" role="button">Submit</a> -->
     </form>
-    
+
 </div>
 <script>
     $("#id_email").attr({'class':"form-control col-lg-8",'placeholder':'Your Email'})

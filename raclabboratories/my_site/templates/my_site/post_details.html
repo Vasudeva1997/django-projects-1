@@ -6,7 +6,7 @@
         <div class="offset-md-1">
             <br><br>
             <p style="font-size: larger;"><span style="color: red"><strong>Price : </strong>&nbsp;&nbsp;₹ {{post.current_price}}</span>&nbsp;&nbsp; <del style="color: slategray;">₹ {{post.actual_price}}</del></p>
-            <a class="btn btn-success" href="{%url 'my_site:order_details' pk=post.id%}" role="button">Enquire</a>
+            <a class="btn btn-success" href="{%url 'my_site:add_order' pk=post.id%}" role="button">Enquire</a>
         </div>
     </div>
     <hr>

@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from datetime import datetime
 
 # Create your models here.
 class Post(models.Model):
@@ -31,14 +32,15 @@ class PostDetails(models.Model):
         return self.post.impurity_name
 
 class Order(models.Model):
-    order = models.ForeignKey(Post,on_delete=models.CASCADE,related_name="orders")
+    post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name="orders")
     name = models.CharField(max_length=512)
     mobile = models.CharField(max_length=521,help_text = "Default extension (+91).\nPlease enter the pin-code in case of telephone")
     email = models.EmailField(max_length=256,help_text="We dont spam you..!!")
     place = models.CharField(max_length=512,blank=True)
     description = models.TextField(max_length=11111,blank=True)
+    datetime = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.name
+        return self.name +" "+ str(self.datetime)
     
 
