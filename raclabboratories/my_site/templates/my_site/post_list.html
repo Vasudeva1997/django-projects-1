@@ -1,0 +1,42 @@
+{%extends "base.html"%} 
+
+{%block body_block%}
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-3">RAC Labboratories</h1>
+    <p class="lead">API impurites</p>
+    <hr class="my-2">
+    <p>Brief about the company</p>
+  </div>
+  <div class="row">
+      {%for post in post_list%}
+        <div class="card bg-light col-md-4 col-lg-4 col-xl-3" style="margin:2%;box-shadow: 5px 10px 18px #888888; border: 1px solid;">
+          <img src="/media/{{post.image_file}}" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{post.impurity_name}}</h5>
+            <p class="card-text">
+                <table>
+                    <tr>
+                      <td><p><strong>CAS :</strong></td>
+                      <td> {{post.cas_no}}</p></td>
+                    </tr>
+                    <tr>
+                      <td><p><strong>Price :</strong></td>
+                      <td> ₹ {{post.actual_price}}/-</p></td>
+                    </tr>
+                    <tr>
+                      <td><p><strong>Qty :</strong></td>
+                      <td> {{post.quantity}} mg</p></td>
+                    </tr>
+                </table>
+            </p>
+            <hr>
+            <div class="col-md-4 text-center"> 
+            <a class="btn btn-primary" href="{%url 'my_site:post_details' pk=post.id%}" role="button">Info</a>
+            </div>
+          </div>
+        </div>
+      {%endfor%}
+  </div>
+</div>
+{%endblock%}

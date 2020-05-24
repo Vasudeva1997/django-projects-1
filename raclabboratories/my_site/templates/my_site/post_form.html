@@ -1,0 +1,25 @@
+{%extends "base.html"%}
+
+{%block body_block%}
+
+<div class="container">
+  
+    <form enctype="multipart/form-data" method="post">
+        {%csrf_token%}
+        {%for field in form%}
+        <div class="form-group">
+          <label for="">{{field.label}}</label>
+          {{field}}
+          <small id="helpId" class="text-muted">{{field.help_text}}</small>
+        </div>
+        {%endfor%}
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>   
+</div>
+<script>
+    $("#id_quantity").attr({"class":"form-control col-lg-2","placeholder":"In Milligrams"})
+    $("#id_current_price").attr({"class":"form-control col-lg-2","placeholder":"Offer Price"})
+    $("#id_actual_price").attr({"class":"form-control col-lg-2","placeholder":"Actual Price"})
+    
+</script>
+{%endblock%}
