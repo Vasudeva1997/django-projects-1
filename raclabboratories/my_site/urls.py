@@ -4,8 +4,9 @@ from . import views
 app_name='my_site'
 
 urlpatterns = [
-    path('',views.PostListView.as_view(),name="post_list"),
+    path('',views.PostListView.as_view(),name="index"),
     path('new_post/',views.PostCreateView.as_view(),name="new_post"),
+    path('products/',views.ProductsView.as_view(),name="products"),
     path('post/<int:pk>/',views.PostDetailView.as_view(),name="post_details"),
     path('order/',views.OrderListView.as_view(),name="order_details"),
     path('post/<int:pk>/add_order',views.add_order,name="add_order"),

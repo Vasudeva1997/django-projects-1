@@ -4,6 +4,7 @@
 {% for post in posts %}
 {%if post.orders%}
 {%for order in post.orders.all%}
+<span class="offset-lg-10 offset-sm-9 text-info" style="font-size: smaller;"><strong>Order ID</strong> : {{order.id}}</span>
 <div class="card" style="margin-bottom: 2%;">
     <div class="card-header">
         <div class="row">

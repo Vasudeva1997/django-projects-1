@@ -1,0 +1,92 @@
+{%extends "base.html"%} 
+
+{%block body_block%}
+
+<div class="container">
+    <form method="get">
+        {%for field in myFilter.form%}
+        {{field}}
+        {%endfor%}
+        <div id='suggestions' class="dropdown-menu col-md-8" aria-labelledby="dropdownMenuButton">
+                                   
+        </div>
+    </form>
+    <hr>
+    <div class="row">
+        {%if post_list%}
+        {%for post in post_list%}
+            <div class="card bg-light col-sm-4 col-lg-3 col-xl-3" style="margin:2%;box-shadow: 5px 10px 18px #888888; border: 1px solid;min-width: 15rem; max-width: 18rem;">
+            <img src="/media/{{post.image_file}}" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title">{{post.impurity_name}}</h5>
+                <p class="card-text">
+                    <table>
+                        <tr>
+                        <td><p><strong>CAS :</strong></td>
+                        <td> {{post.cas_no}}</p></td>
+                        </tr>
+                        <tr>
+                        <td><p><strong>Price :</strong></td>
+                        <td> ₹ {{post.actual_price}}/-</p></td>
+                        </tr>
+                        <tr>
+                        <td><p><strong>Qty :</strong></td>
+                        <td> {{post.quantity}} mg</p></td>
+                        </tr>
+                    </table>
+                </p>
+                <hr>
+                <div class="col-md-4 text-center"> 
+                <a class="btn btn-primary" href="{%url 'my_site:post_details' pk=post.id%}" role="button">Info</a>
+                </div>
+            </div>
+            </div>
+        {%endfor%}
+        {%else%}
+        <h5>No data</h5>
+        {%endif%}
+    </div>
+</div>
+<script>
+    $("#id_impurity_name").attr({type:"text", name:"impurity_name",  class:"form-control col-md-6 my-0 py-1 dropdown-toggle", placeholder:"Search . . .", "data-toggle":"dropdown"})
+
+    function getMatchings(matchStr, names) {
+      let matchedNames = Array(5);
+      let matchedHTML = "";
+      if (matchStr != " " && matchStr.length > 3) {
+        let i = 0;
+        for (var name of names) {
+          if (name.toLowerCase().indexOf(matchStr.toLowerCase()) >= 0) {
+            matchedNames[i++] = name.trim();
+          }
+          if (i == 5) break;
+        }
+        i = 1;
+        for (var name of matchedNames) {
+         
+          if (name != undefined){
+            let id = Number.parseInt(name.split(":")[1].trim())
+            href = '/post/'+id+'/'
+            matchedHTML +=
+              '<a href='+href+'  class="dropdown-item" type="submit" onmouseover="searchMouseOver()" >' +
+              name.split(":")[0] +
+              "</a>";
+          }
+            
+        }
+      }
+      $("#suggestions").html(matchedHTML);
+    }
+
+    $("#id_impurity_name").on("keyup", (event) => {
+      let users = "{{names|escapejs|safe }}";
+      names = users.replace(/[\[\]{}']/g, "").split(",");
+      getMatchings(event.target.value, names);
+    });
+
+    function searchMouseOver() {
+      $("#id_impurity_name").val($(event.target).text());
+      console.log($(event.target).text());
+    }
+    </script>
+{%endblock%}
